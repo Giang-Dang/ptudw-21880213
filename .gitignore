@@ -3913,3 +3913,4 @@ node_modules/express-handlebars/spec/fixtures/templates/template-latin1.handleba
 node_modules/express-handlebars/spec/fixtures/templates/template.handlebars
 node_modules/express-handlebars/spec/fixtures/templates/subdir/template.handlebars
 node_modules/express-handlebars/types/index.d.ts
+node_modules
