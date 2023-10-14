@@ -4,7 +4,6 @@ const controller = {};
 
 const models = require('../models');
 
-
 controller.showHomepage = async (req, res) => {
     const recentProducts = await models.Product.findAll({
         attributes: ['id', 'name', 'imagePath', 'stars', 'price', 'oldPrice', 'createdAt'], 
