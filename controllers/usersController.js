@@ -9,7 +9,7 @@ controller.checkout = async (req, res) => {
         let userId = 1;
         res.locals.addresses = await models.Address.findAll({ where: { userId }});
         res.locals.cart = req.session.cart.getCart();
-        res.render('checkout');
+        return res.render('checkout');
     }
     res.redirect('/products/');
 };
@@ -49,7 +49,7 @@ controller.placeorders = async (req, res) => {
             break;
     }
 
-    return res.redirect('/users/checkout');
+    // return res.redirect('/users/checkout');
 };
 
 const saveOrders = async (req, res, status) => {
@@ -71,6 +71,7 @@ const saveOrders = async (req, res, status) => {
         });
     });
     await models.OrderDetail.bulkCreate(orderDetails);
+    req.session.cart.clear();
     return res.render('error', { message: 'Thank you for your order!'});
 }
 
