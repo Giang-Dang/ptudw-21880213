@@ -2,6 +2,7 @@
 
 const controller = {};
 const passport = require('./passport');
+const models = require('../models');
 
 controller.show = (req, res) => {
     if (req.isAuthenticated()){
@@ -69,6 +70,33 @@ controller.register = (req, res, next) => {
             res.redirect(reqUrl);
         })
     })(req, res, next);
+}
+
+controller.showForgotPassword = (req, res) => {
+    return res.render('forgot-password');
+}
+
+controller.forgotPassword = async (req, res) => {
+    let email = req.body.email;
+
+    let user = await models.User.findOne({ where: { email } });
+    if (user) {
+        const { sign } = require('./jwt');
+        const host = req.header('host');
+        const resetLink = `${req.protocol}://${host}/reset?token=${sign(email)}&email=${email}`;
+        const { sendForgotPasswordMail } = require('./mail');
+        await sendForgotPasswordMail(user, host, resetLink)
+            .then((result) => {
+                console.log('Email has been sent');
+                return res.render('forgot-password', { done: true });
+            })
+            .catch(error => {
+                console.log(error);
+                return res.render('forgot-password', { message: 'An error has occured when sending to your email. Please check your email address!'});
+            });
+    } else {
+        return res.render('forgot-password', { message : 'Email does not exist!' });
+    }
 }
 
 module.exports = controller;
