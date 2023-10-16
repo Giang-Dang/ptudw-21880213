@@ -47,13 +47,14 @@
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account</a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Login</a>
-                                    <a href="#" class="dropdown-item">Register</a>
+                                    <a href="/users/my-account" class="dropdown-item">Profile</a>
+                                    <a href="/users/wishlist" class="dropdown-item">Wishlist</a>
+                                    <a href="/users/logout" class="dropdown-item">Logout</a>
                                 </div>
                             </div>
                             {{else}}
                             <div class="dropdown">
-                                <a href="/login">Login or Register</a>
+                                <a href="/users/login">Login or Register</a>
                             </div>
                             {{/if}}
                             <div class="cart">
